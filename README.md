@@ -33,8 +33,8 @@ Here’s a basic example of how to use Collaborite:
 Create a server to handle WebSocket connections:
 ```javascript
 // src/server.js
-const WebSocket = require('ws');
-const server = new WebSocket.Server({ port: 8080 });
+const Collaborite = require('collaborite');
+const server = new Collaborite(8080);
 
 server.on('connection', (client) => {
     console.log('A user connected');
@@ -43,11 +43,7 @@ server.on('connection', (client) => {
         console.log('Received:', message);
 
         // Broadcast the message to all clients
-        server.clients.forEach((otherClient) => {
-            if (otherClient !== client && otherClient.readyState === WebSocket.OPEN) {
-                otherClient.send(message);
-            }
-        });
+        server.broadcast(message);
     });
 
     client.on('close', () => {
@@ -62,19 +58,15 @@ console.log('Collaboration Server started on ws://localhost:8080');
 Connect to the Collaborite server and send/receive messages:
 ```javascript
 // src/client.js
-const client = new WebSocket('ws://localhost:8080');
+// src/client.js
+const CollaborationClient = require('collaborite'); // Adjust path if necessary
 
-client.onopen = () => {
-    console.log('Connected to the server');
-    
-    // Send a message to the server
-    client.send(JSON.stringify({ type: 'user-joined', username: 'User1' }));
-};
+const client = new CollaborationClient('ws://localhost:8080');
 
-client.onmessage = (event) => {
-    const message = JSON.parse(event.data);
-    console.log('Received message:', message);
-};
+// Example usage: send an edit after a delay
+setTimeout(() => {
+    client.sendEdit('Hello, world!');
+}, 3000);
 ```
 
 ## API Reference
