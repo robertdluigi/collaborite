@@ -1,0 +1,28 @@
+{
+  "name": "collaborite",
+  "version": "1.0.0",
+  "description": "Collaborite is a lightweight real-time collaboration library that enables multiple users to seamlessly edit and sync data across clients.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "collaboration",
+    "real-time",
+    "websocket",
+    "server",
+    "client",
+    "data",
+    "sync"
+    
+  ],
+  "author": "Robert Docan",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^10.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
